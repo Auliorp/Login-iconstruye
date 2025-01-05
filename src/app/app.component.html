@@ -13,7 +13,9 @@
       class="toggle-button"
       [class.active]="isActive('user')"
       (click)="toggleButton('user')"
-    >Con tu usuario</button>
+    >
+      Con tu usuario
+    </button>
     <button 
       class="toggle-button"
       [class.active]="isActive('email')"
@@ -107,6 +109,8 @@
     class="btn-submit"
     [disabled]="isSubmitDisabled"
     [ngClass]="{ 'btn-disabled': isSubmitDisabled }"
+    [matTooltip]="isSubmitDisabled ? 'Todos los campos son requeridos' : ''"
+    matTooltipPosition="above"
     (click)="onSubmit()"
   >
     <span *ngIf="isLoading">Cargando...</span>
@@ -115,14 +119,52 @@
 
   <footer class="login-footer">
     <div>
-      <a href="/recover-password" class="forgot-password">¿Olvidaste tu contraseña?</a>
+      <a 
+        href="javascript:void(0)" 
+        class="forgot-password"
+        (click)="openModal()"
+      >¿Olvidaste tu contraseña?</a>
     </div>
     <div class="contact-client">
       <p>¿No eres cliente?</p>
       <a 
-        href="/contact" 
+        href="javascript:void(0)" 
         class="contact-link"
+        (click)="openModal()"
       > Contáctanos aquí</a>
     </div>
   </footer>
+<!-- primer modal -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <div class="modal-icon">
+      <i class="material-icons warning-icon">build</i>
+    </div>
+    <p class="modal-title">Funcionalidad no implementada</p>
+    <p class="modal-content-text">Esta opción aún no está disponible. Estamos trabajando para habilitarla próximamente.</p>
+    <hr>
+    <div class="container-btn">
+      <button class="btn-confirm" (click)="closeModal()">ENTENDIDO</button>
+    </div>
+  </div>
+</div>
+  <!-- segundo modal -->
+  <div class="modal secondary-modal" *ngIf="showSecondaryModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="material-icons warning-icon">error_outline</i>
+      </div>
+      <p class="modal-title">
+        ¡Tu correo electrónico no está habilitado para ingresar mediante esta opción!
+      </p>
+      <p class="modal-content-text">
+        Para acceder debes hacerlo utilizando tu 
+        <strong>usuario, organización y clave</strong>.
+      </p>
+      <hr>
+      <div class="container-btn">
+        <button class="btn-confirm" (click)="closeSecondaryModal()">ENTENDIDO</button>
+      </div>
+    </div>
+  </div>
 </section>
