@@ -1,0 +1,41 @@
+{
+  "login_page": {
+    "logo_alt": "Logo",
+    "title": "Inicie sesión",
+    "toggle_button_user": "Con tu usuario",
+    "toggle_button_email": "Con tu correo",
+    "form_user": {
+      "username_placeholder": "Nombre usuario *",
+      "company_placeholder": "Empresa *",
+      "password_placeholder": "Contraseña *"
+    },
+    "form_email": {
+      "email_placeholder": "Correo electrónico *",
+      "password_placeholder": "Contraseña *"
+    },
+    "submit_button": {
+      "loading": "Cargando...",
+      "default": "INGRESAR",
+      "tooltip": "Todos los campos son requeridos"
+    },
+    "footer": {
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "not_a_client": "¿No eres cliente?",
+      "contact_us": "Contáctanos aquí"
+    },
+    "not_implemented_modal": {
+      "title": "Funcionalidad no implementada",
+      "content": "Esta opción aún no está disponible. Estamos trabajando para habilitarla próximamente.",
+      "button": "ENTENDIDO"
+    },
+    "email_not_enabled_modal": {
+      "title": "¡Tu correo electrónico no está habilitado para ingresar mediante esta opción!",
+      "content": "Para acceder debes hacerlo utilizando <strong>tu usuario, organización y clave</strong>.",
+      "button": "ENTENDIDO"
+    },
+    "snackbar": {
+      "login_success": "Inicio de sesión exitoso",
+      "login_error": "Error al iniciar sesión"
+    }
+  }
+}

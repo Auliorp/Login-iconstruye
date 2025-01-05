@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {LoginService} from './service/login.service'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
     CommonModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TranslateModule,
   ],
   providers: [LoginService],
   templateUrl: './app.component.html',
@@ -27,14 +27,16 @@ export class AppComponent {
   userForm: FormGroup;
   emailForm: FormGroup;
   isLoading = false
-  showModal: boolean = false;
-  showSecondaryModal: boolean = false;
+  showNotImplementedModal: boolean = false;
+  showEmailNotEnabledModal: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
     ) {
+    this.translate.setDefaultLang('es');
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       company: ['', Validators.required],
@@ -62,6 +64,7 @@ export class AppComponent {
       setTimeout(() => {
         this.isLoading = false;
         this.userForm.reset();
+        this.showSnackBar('login_page.snackbar.login_error','error')
       }, 1000);
     }else{
       this.handleSubmitEmailForm()
@@ -80,42 +83,39 @@ export class AppComponent {
       next: (response) => {
         this.isLoading = false;
         this.emailForm.reset();
-        this.showSnackBar('Login exitoso', 'success');
+        this.showSnackBar('login_page.snackbar.login_success', 'success');
       },
       error: (error) => {
         this.isLoading = false;
         if (error.status === 401 || error.status === 403) {
-          this.showSecondaryModal = true;
+          this.showEmailNotEnabledModal = true;
         }
       },
     });
   }
 
-  private showSnackBar(message: string, type: 'success' | 'error'): void {
-    const panelClass = type === 'success' ? 'custom-snackbar-success' : 'custom-snackbar-error';
-
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: [panelClass]
+  private showSnackBar(messageKey: string, type: 'success' | 'error'): void {
+    this.translate.get(messageKey).subscribe((message: string) => {
+      const panelClass = type === 'success' ? 'custom-snackbar-success' : 'custom-snackbar-error';
+      this.snackBar.open(message, 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: [panelClass],
+      });
     });
   }
 
   openModal(): void {
-    this.showModal = true;
+    this.showNotImplementedModal = true;
   }
 
   closeModal(): void {
-    this.showModal = false;
-  }
-
-  openSecondaryModal(): void {
-    this.showSecondaryModal = true;
+    this.showNotImplementedModal = false;
   }
   
-  closeSecondaryModal(): void {
-    this.showSecondaryModal = false;
+  closeEmailNotEnabledModal(): void {
+    this.showEmailNotEnabledModal = false;
   }
 
   get isSubmitDisabled(): boolean {
