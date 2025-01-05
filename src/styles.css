@@ -19,21 +19,9 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Snackbar Styles (Disabled) */
-/*
-.snackbar-success {
-  background-color: #4caf50 !important;
-  color: white !important;
-  border-radius: 8px;
-  font-weight: bold;
-  text-align: center;
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ff5622d4 inset;
+    -webkit-text-fill-color: rgb(232, 232, 232);
 }
-
-.snackbar-error {
-  background-color: #f44336 !important;
-  color: white !important;
-  border-radius: 8px;
-  font-weight: bold;
-  text-align: center;
-}
-*/
